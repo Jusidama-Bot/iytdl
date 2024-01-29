@@ -3,7 +3,6 @@ __all__ = [
     "sublists",
     "humanbytes",
     "time_formater",
-    "rnd_key",
     "run_command",
 ]
 
@@ -58,7 +57,7 @@ def humanbytes(size: Union[float, int]) -> str:
     return "{:.2f} {}B".format(size, power_dict[t_n])
 
 
-def time_formater(value: Union[timedelta, int], precision: int = 0) -> str:
+def time_formater(value: Union[timedelta, int, float], precision: int = 0) -> str:
     """Format Time to Human readable format
 
     Parameters:
@@ -71,7 +70,7 @@ def time_formater(value: Union[timedelta, int], precision: int = 0) -> str:
         `str`
     """
     pieces = []
-    if isinstance(value, int):
+    if isinstance(value, (int, float)):
         value = timedelta(seconds=value)
     if value.days:
         pieces.append(f"{value.days}d")
@@ -95,10 +94,6 @@ def time_formater(value: Union[timedelta, int], precision: int = 0) -> str:
         return " ".join(pieces)
 
     return " ".join(pieces[:precision])
-
-
-def rnd_key(length: int = 8) -> str:
-    return "".join(sample(_CHAR, length))
 
 
 async def upload_to_telegraph(http: ClientSession, url: str) -> Optional[str]:

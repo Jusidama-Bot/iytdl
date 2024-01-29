@@ -5,8 +5,7 @@ import os
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import aiosqlite
-
-from iytdl.utils import rnd_key
+import secrets
 
 
 class AioSQLiteDB:
@@ -136,7 +135,7 @@ CREATE TABLE IF NOT EXISTS {key} (
         if old_key := await self.cur.fetchone():
             return old_key[0]
         # New Key
-        key = rnd_key(5)
+        key = secrets.token_hex(5)
         await self.cur.execute(
             "INSERT INTO url_cache(key, url) VALUES(?, ?)", (key, url)
         )

@@ -32,6 +32,8 @@ from iytdl.upload_lib.progress import progress as upload_progress
 
 from iytdl.utils import *  # noqa ignore=F405
 
+from iytdl.exceptions import DownloadFailedError
+
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +96,10 @@ class Uploader:
 
             if media_type in info_dict and "thumb" in info_dict:
                 break
+        
+        if not info_dict.get("file_name"):
+            raise DownloadFailedError("File download failed, since can't find media file in folder")
+
         logger.debug(f"Debug: {key}\n\n{info_dict}")
         return info_dict
 

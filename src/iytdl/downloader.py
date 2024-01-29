@@ -5,6 +5,7 @@ import asyncio
 import logging
 import os
 import time
+import secrets
 
 from math import floor
 from typing import Any, Callable, Dict, Union
@@ -162,7 +163,7 @@ class Downloader:
         last_update_time = None
 
         process = Process(update, cb_extra=cb_extra)
-        key = rnd_key()
+        key = secrets.token_hex(8)
 
         def prog_func(prog_data: Dict) -> None:
             nonlocal last_update_time
