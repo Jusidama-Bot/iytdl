@@ -94,7 +94,7 @@ class Uploader:
 
             if media_type in info_dict and "thumb" in info_dict:
                 break
-
+        logger.debug(f"Debug: {key}\n\n{info_dict}")
         return info_dict
 
     async def get_input_media(
