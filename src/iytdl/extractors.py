@@ -207,7 +207,7 @@ class Extractor:
                         if fr_note in (frmt_, f"{frmt_}60"):
                             qual_dict[frmt_][fr_id] = fr_size
                 if str(video.get("acodec")).lower() != "none":
-                    bitrrate = int(video.get("abr", 0))
+                    bitrrate = int(video.get("abr") or 0)
                     if bitrrate != 0:
                         audio_dict[
                             bitrrate
